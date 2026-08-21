@@ -1,21 +1,172 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon site éducatif</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>YALUMY Learning</title>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <h1>Bienvenue 👋</h1>
-    <p>Apprendre les sciences autrement.</p>
+  <div class="container">
 
-    <h2>📚 Les cours</h2>
+    <!-- NAVBAR -->
+    <nav class="navbar">
 
-    <button>Génétique 🧬</button>
-    <button>Reproduction humaine</button>
-    <button>Immunité 🛡️</button>
+      <div class="logo">
+        YALUMY <span>Learning</span>
+      </div>
+
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="lessons/index.html">Lessons</a>
+        <a href="games/index.html">Games</a>
+        <a href="flashcards/index.html">Flashcards</a>
+
+        <button class="theme-toggle" id="themeToggle">
+          🌙
+        </button>
+      </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <div class="hero-badge">
+        Learn visually. Understand deeply.
+      </div>
+
+      <h1>
+        Science becomes
+        <span>clear.</span>
+      </h1>
+
+      <p>
+        Discover lessons, visual explanations, PDFs,
+        videos, flashcards and interactive games
+        designed to make learning easier.
+      </p>
+
+      <div style="margin-top: 32px;">
+        <a href="lessons/index.html" class="btn btn-primary">
+          Explore Lessons →
+        </a>
+      </div>
+
+    </section>
+
+
+    <!-- MAIN SECTIONS -->
+    <section class="section">
+
+      <div class="section-title">
+        <h2>Explore YALUMY</h2>
+
+        <p>
+          Everything you need to understand, revise and practice.
+        </p>
+      </div>
+
+
+      <div class="grid">
+
+        <a class="card" href="lessons/index.html">
+          <div class="card-icon">📚</div>
+
+          <h3>Lessons</h3>
+
+          <p>
+            Explore every chapter with visual explanations,
+            videos, PDFs and revision tools.
+          </p>
+        </a>
+
+
+        <a class="card" href="games/index.html">
+          <div class="card-icon">🎮</div>
+
+          <h3>Games</h3>
+
+          <p>
+            Learn through simple interactive challenges
+            designed to help concepts stick.
+          </p>
+        </a>
+
+
+        <a class="card" href="flashcards/index.html">
+          <div class="card-icon">🧠</div>
+
+          <h3>Flashcards</h3>
+
+          <p>
+            Review important concepts quickly
+            and strengthen your memory.
+          </p>
+        </a>
+
+
+        <a class="card" href="lessons/9bal-el-bac.html">
+          <div class="card-icon">🎓</div>
+
+          <h3>9bal el Bac</h3>
+
+          <p>
+            Review the essential foundations you need
+            before starting the Bac program.
+          </p>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+      YALUMY Learning — Learn differently.
+    </footer>
+
+  </div>
+
+
+  <!-- DARK / LIGHT MODE -->
+  <script>
+
+    const themeToggle = document.getElementById("themeToggle");
+
+    const savedTheme = localStorage.getItem("yalumy-theme");
+
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark");
+      themeToggle.textContent = "☀️";
+    }
+
+
+    themeToggle.addEventListener("click", () => {
+
+      document.body.classList.toggle("dark");
+
+      if (document.body.classList.contains("dark")) {
+
+        themeToggle.textContent = "☀️";
+        localStorage.setItem("yalumy-theme", "dark");
+
+      } else {
+
+        themeToggle.textContent = "🌙";
+        localStorage.setItem("yalumy-theme", "light");
+
+      }
+
+    });
+
+  </script>
 
 </body>
 </html>
