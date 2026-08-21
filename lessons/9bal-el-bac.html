@@ -62,7 +62,7 @@
     </section>
 
 
-    <!-- RESOURCES -->
+    <!-- LEARNING OPTIONS -->
     <section class="section">
 
       <div class="section-title">
@@ -73,140 +73,101 @@
         </p>
       </div>
 
-
       <div class="grid">
 
-
         <!-- PDF -->
-        <section class="section" id="pdf">
+        <a class="card" href="#pdf">
+          <div class="card-icon">📄</div>
 
-  <div class="section-title">
-    <h2>📄 PDF Library</h2>
-    <p>Essential files for your preparation.</p>
-  </div>
+          <h3>PDF Library</h3>
 
-  <div class="resource-card">
-
-    <div class="resource-info">
-
-      <div class="resource-icon">
-        📘
-      </div>
-
-      <div class="resource-text">
-        <h3>9bal el BAC</h3>
-
-        <p>
-          Fiche de révision de SVT.
-        </p>
-
-        <span class="resource-tag">
-          SVT • PDF
-        </span>
-      </div>
-
-    </div>
-
-    <a
-      class="resource-open"
-      href="../assets/pdfs/9bal-el-bac/verbes%20%2829.7%20x%2029%20cm%29.pdf"
-      target="_blank">
-      Open PDF →
-    </a>
-
-  </div>
-
-</section>
+          <p>
+            Open your revision files and essential preparation resources.
+          </p>
+        </a>
 
 
         <!-- VIDEOS -->
         <a class="card" href="#videos">
-
           <div class="card-icon">▶️</div>
 
           <h3>YouTube Videos</h3>
 
           <p>
-            Watch selected explanations and visual lessons
-            directly from YALUMY content.
+            Watch visual explanations related to this lesson.
           </p>
-
         </a>
 
 
         <!-- GAMES -->
         <a class="card" href="../games/index.html">
-
           <div class="card-icon">🎮</div>
 
           <h3>Games</h3>
 
           <p>
-            Practice important concepts through
-            interactive learning activities.
+            Practice key concepts through interactive activities.
           </p>
-
         </a>
 
 
         <!-- FLASHCARDS -->
-        <a class="card" href="../flashcards/index.html">
-
+        <a class="card" href="../flashcards/9bal-el-bac.html">
           <div class="card-icon">🧠</div>
 
           <h3>Flashcards</h3>
 
           <p>
-            Memorize key definitions and concepts
-            through quick revision cards.
+            Review important concepts with interactive flashcards.
           </p>
-
         </a>
-
 
       </div>
 
     </section>
 
 
-  <div class="resource-card">
+    <!-- PDF SECTION -->
+    <section class="section" id="pdf">
 
-  <div class="resource-info">
+      <div class="section-title">
+        <h2>📄 PDF Library</h2>
 
-    <div class="resource-icon">
-      📘
-    </div>
-
-
-    </div>
-
-
-  <a
-    class="resource-open"
-    href="../assets/pdfs/9bal-el-bac/verbes%20%2829.7%20x%2029%20cm%29.pdf"
-    target="_blank">
-    Open PDF →
-  </a>
-
-</div>
+        <p>
+          Essential files for your preparation.
+        </p>
       </div>
 
+      <div class="resource-card">
 
-      <div class="grid">
+        <div class="resource-info">
 
-   <a class="card"
-   href="../assets/pdfs/9bal-el-bac/verbes%20%2829.7%20x%2029%20cm%29.pdf"
-   target="_blank">
+          <div class="resource-icon">
+            📘
+          </div>
 
-  <div class="card-icon">📘</div>
+          <div class="resource-text">
 
-  <h3>9bal el BAC</h3>
+            <h3>9bal el BAC</h3>
 
-  <p>
-    Fiche de révision de svt.
-  </p>
+            <p>
+              Fiche de révision de SVT.
+            </p>
 
-</a>
+            <span class="resource-tag">
+              SVT • PDF
+            </span>
+
+          </div>
+
+        </div>
+
+        <a
+          class="resource-open"
+          href="../assets/pdfs/9bal-el-bac/verbes%20%2829.7%20x%2029%20cm%29.pdf"
+          target="_blank">
+          Open PDF →
+        </a>
 
       </div>
 
@@ -217,21 +178,20 @@
     <section class="section" id="videos">
 
       <div class="section-title">
-
         <h2>▶️ Videos</h2>
 
         <p>
           Visual explanations selected for this lesson.
         </p>
-
       </div>
-
 
       <div class="grid">
 
         <div class="card">
 
-          <div class="card-icon">🎥</div>
+          <div class="card-icon">
+            🎥
+          </div>
 
           <h3>Coming soon</h3>
 
@@ -246,6 +206,7 @@
     </section>
 
 
+    <!-- FOOTER -->
     <footer>
       YALUMY Learning — Learn visually. Understand deeply.
     </footer>
@@ -278,12 +239,20 @@
       if (document.body.classList.contains("dark")) {
 
         themeToggle.textContent = "☀️";
-        localStorage.setItem("yalumy-theme", "dark");
+
+        localStorage.setItem(
+          "yalumy-theme",
+          "dark"
+        );
 
       } else {
 
         themeToggle.textContent = "🌙";
-        localStorage.setItem("yalumy-theme", "light");
+
+        localStorage.setItem(
+          "yalumy-theme",
+          "light"
+        );
 
       }
 
