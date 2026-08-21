@@ -143,6 +143,40 @@
       }
 
     }
+    .flashcard-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+
+  margin-bottom: 35px;
+}
+
+.filter-btn {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+
+  padding: 10px 15px;
+
+  border-radius: 999px;
+
+  font-weight: 700;
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.filter-btn:hover {
+  transform: translateY(-2px);
+  color: var(--text);
+}
+
+.filter-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
 
   </style>
 </head>
@@ -204,6 +238,33 @@
   <!-- FLASHCARDS -->
 
   <section class="section">
+    <div class="flashcard-filters">
+
+  <button class="filter-btn active" data-category="ALL">
+    All
+  </button>
+
+  <button class="filter-btn" data-category="CHROMOSOMES">
+    Chromosomes
+  </button>
+
+  <button class="filter-btn" data-category="MITOSE & MÉIOSE">
+    Mitose & Méiose
+  </button>
+
+  <button class="filter-btn" data-category="HORMONES">
+    Hormones
+  </button>
+
+  <button class="filter-btn" data-category="GÉNÉTIQUE">
+    Génétique
+  </button>
+
+  <button class="filter-btn" data-category="MONOHYBRIDISME">
+    Monohybridisme
+  </button>
+
+</div>
 
     <div class="flashcard-area">
 
@@ -360,6 +421,7 @@
      ========================= */
 
   let currentCard = 0;
+let filteredCards = [...cards];
 
   const flashcard =
     document.getElementById("flashcard");
@@ -382,7 +444,7 @@
 
   function showCard() {
 
-    const card = cards[currentCard];
+    const card = filteredCards[currentCard];
 
     flashcard.classList.remove("flipped");
 
@@ -401,7 +463,7 @@
     progress.textContent =
       (currentCard + 1) +
       " / " +
-      cards.length;
+      filteredCards.length;
 
   }
 
@@ -426,7 +488,7 @@
 
         currentCard =
           (currentCard + 1)
-          % cards.length;
+          % filteredCards.length;
 
         showCard();
 
@@ -442,13 +504,48 @@
 
         currentCard =
           (currentCard - 1 + cards.length)
-          % cards.length;
+          % filteredCards.length;
 
         showCard();
 
       }
     );
+const filterButtons =
+  document.querySelectorAll(".filter-btn");
 
+filterButtons.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    filterButtons.forEach(btn =>
+      btn.classList.remove("active")
+    );
+
+    button.classList.add("active");
+
+    const selectedCategory =
+      button.dataset.category;
+
+    if (selectedCategory === "ALL") {
+
+      filteredCards = [...cards];
+
+    } else {
+
+      filteredCards = cards.filter(
+        card =>
+          card.category === selectedCategory
+      );
+
+    }
+
+    currentCard = 0;
+
+    showCard();
+
+  });
+
+});
 
   showCard();
 
