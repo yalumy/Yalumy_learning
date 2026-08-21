@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>9bal el Bac | YALUMY Learning</title>
+
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+      <div class="logo">
+        YALUMY <span>Learning</span>
+      </div>
+
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="index.html">Lessons</a>
+        <a href="../games/index.html">Games</a>
+        <a href="../flashcards/index.html">Flashcards</a>
+
+        <button class="theme-toggle" id="themeToggle">
+          🌙
+        </button>
+      </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <div class="hero-badge">
+        BEFORE THE BAC
+      </div>
+
+      <h1>
+        9bal el
+        <span>Bac.</span>
+      </h1>
+
+      <p>
+        Build the foundations you need before starting Bac Sciences.
+        Review the essential concepts through PDFs, videos,
+        games and flashcards.
+      </p>
+
+      <div style="margin-top: 30px;">
+        <a href="index.html" class="btn btn-primary">
+          ← Back to Lessons
+        </a>
+      </div>
+
+    </section>
+
+
+    <!-- RESOURCES -->
+    <section class="section">
+
+      <div class="section-title">
+        <h2>Choose how you want to learn</h2>
+
+        <p>
+          Read, watch, practice or revise.
+        </p>
+      </div>
+
+
+      <div class="grid">
+
+
+        <!-- PDF -->
+        <a class="card" href="#pdf">
+
+          <div class="card-icon">📄</div>
+
+          <h3>PDF Library</h3>
+
+          <p>
+            Download summaries, revision sheets
+            and essential concepts before the Bac.
+          </p>
+
+        </a>
+
+
+        <!-- VIDEOS -->
+        <a class="card" href="#videos">
+
+          <div class="card-icon">▶️</div>
+
+          <h3>YouTube Videos</h3>
+
+          <p>
+            Watch selected explanations and visual lessons
+            directly from YALUMY content.
+          </p>
+
+        </a>
+
+
+        <!-- GAMES -->
+        <a class="card" href="../games/index.html">
+
+          <div class="card-icon">🎮</div>
+
+          <h3>Games</h3>
+
+          <p>
+            Practice important concepts through
+            interactive learning activities.
+          </p>
+
+        </a>
+
+
+        <!-- FLASHCARDS -->
+        <a class="card" href="../flashcards/index.html">
+
+          <div class="card-icon">🧠</div>
+
+          <h3>Flashcards</h3>
+
+          <p>
+            Memorize key definitions and concepts
+            through quick revision cards.
+          </p>
+
+        </a>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- PDF SECTION -->
+    <section class="section" id="pdf">
+
+      <div class="section-title">
+
+        <h2>📄 PDF Library</h2>
+
+        <p>
+          Essential files for your preparation.
+        </p>
+
+      </div>
+
+
+      <div class="grid">
+
+        <div class="card">
+
+          <div class="card-icon">📘</div>
+
+          <h3>Coming soon</h3>
+
+          <p>
+            Your first revision PDF will appear here.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- VIDEOS SECTION -->
+    <section class="section" id="videos">
+
+      <div class="section-title">
+
+        <h2>▶️ Videos</h2>
+
+        <p>
+          Visual explanations selected for this lesson.
+        </p>
+
+      </div>
+
+
+      <div class="grid">
+
+        <div class="card">
+
+          <div class="card-icon">🎥</div>
+
+          <h3>Coming soon</h3>
+
+          <p>
+            Your YouTube videos will appear here.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <footer>
+      YALUMY Learning — Learn visually. Understand deeply.
+    </footer>
+
+  </div>
+
+
+  <!-- DARK / LIGHT MODE -->
+  <script>
+
+    const themeToggle =
+      document.getElementById("themeToggle");
+
+    const savedTheme =
+      localStorage.getItem("yalumy-theme");
+
+
+    if (savedTheme === "dark") {
+
+      document.body.classList.add("dark");
+      themeToggle.textContent = "☀️";
+
+    }
+
+
+    themeToggle.addEventListener("click", () => {
+
+      document.body.classList.toggle("dark");
+
+      if (document.body.classList.contains("dark")) {
+
+        themeToggle.textContent = "☀️";
+        localStorage.setItem("yalumy-theme", "dark");
+
+      } else {
+
+        themeToggle.textContent = "🌙";
+        localStorage.setItem("yalumy-theme", "light");
+
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
