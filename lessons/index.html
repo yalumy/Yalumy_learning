@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lessons | YALUMY Learning</title>
+
+  <!-- لأننا الآن داخل مجلد lessons -->
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+      <div class="logo">
+        YALUMY <span>Learning</span>
+      </div>
+
+      <div class="nav-links">
+
+        <a href="../index.html">Home</a>
+        <a href="index.html">Lessons</a>
+        <a href="../games/index.html">Games</a>
+        <a href="../flashcards/index.html">Flashcards</a>
+
+        <button class="theme-toggle" id="themeToggle">
+          🌙
+        </button>
+
+      </div>
+
+    </nav>
+
+
+    <!-- HEADER -->
+    <section class="hero">
+
+      <div class="hero-badge">
+        YALUMY • SVT
+      </div>
+
+      <h1>
+        Choose your
+        <span>lesson.</span>
+      </h1>
+
+      <p>
+        Explore each chapter through visual explanations,
+        PDFs, videos, flashcards and interactive activities.
+      </p>
+
+    </section>
+
+
+    <!-- BEFORE BAC -->
+    <section class="section">
+
+      <div class="section-title">
+
+        <h2>Before the Bac</h2>
+
+        <p>
+          Start here if you want to strengthen the foundations
+          you need before beginning the Bac program.
+        </p>
+
+      </div>
+
+
+      <div class="grid">
+
+        <a class="card" href="9bal-el-bac.html">
+
+          <div class="card-icon">🎓</div>
+
+          <h3>9bal el Bac</h3>
+
+          <p>
+            Essential concepts, PDFs, videos, games
+            and flashcards to prepare for Bac Sciences.
+          </p>
+
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- BAC LESSONS -->
+    <section class="section">
+
+      <div class="section-title">
+
+        <h2>Bac Sciences • SVT</h2>
+
+        <p>
+          Select a chapter and start learning.
+        </p>
+
+      </div>
+
+
+      <div class="grid">
+
+
+        <!-- LESSON 1 -->
+
+        <a class="card" href="reproduction-homme.html">
+
+          <div class="card-icon">♂️</div>
+
+          <h3>Reproduction chez l'homme</h3>
+
+          <p>
+            Spermatogenèse, hormones and regulation
+            of the male reproductive system.
+          </p>
+
+        </a>
+
+
+        <!-- LESSON 2 -->
+
+        <a class="card" href="reproduction-femme.html">
+
+          <div class="card-icon">♀️</div>
+
+          <h3>Reproduction chez la femme</h3>
+
+          <p>
+            Cycle ovarien, cycle utérin,
+            hormones and hormonal regulation.
+          </p>
+
+        </a>
+
+
+        <!-- LESSON 3 -->
+
+        <a class="card" href="procreation.html">
+
+          <div class="card-icon">🧬</div>
+
+          <h3>Procréation</h3>
+
+          <p>
+            Fertilisation, pregnancy and the biological
+            mechanisms behind human reproduction.
+          </p>
+
+        </a>
+
+
+        <!-- LESSON 4 -->
+
+        <a class="card" href="genetique-diploide.html">
+
+          <div class="card-icon">🪰</div>
+
+          <h3>Génétique des diploïdes</h3>
+
+          <p>
+            Alleles, dominance, crosses,
+            Mendel and genetic reasoning.
+          </p>
+
+        </a>
+
+
+        <!-- LESSON 5 -->
+
+        <a class="card" href="genetique-humaine.html">
+
+          <div class="card-icon">🧬</div>
+
+          <h3>Génétique humaine</h3>
+
+          <p>
+            Pedigrees, karyotypes,
+            electrophoresis and hereditary diseases.
+          </p>
+
+        </a>
+
+
+        <!-- LESSON 6 -->
+
+        <a class="card" href="evolution.html">
+
+          <div class="card-icon">🌿</div>
+
+          <h3>Évolution biologique</h3>
+
+          <p>
+            Evolution, phylogenetic relationships
+            and evidence of common ancestry.
+          </p>
+
+        </a>
+
+
+        <!-- LESSON 7 -->
+
+        <a class="card" href="systeme-nerveux.html">
+
+          <div class="card-icon">🧠</div>
+
+          <h3>Système nerveux</h3>
+
+          <p>
+            Neurons, nervous messages,
+            synapses and nervous control.
+          </p>
+
+        </a>
+
+
+        <!-- LESSON 8 -->
+
+        <a class="card" href="muscle.html">
+
+          <div class="card-icon">💪</div>
+
+          <h3>Muscle</h3>
+
+          <p>
+            Muscle structure, contraction
+            and energy involved in movement.
+          </p>
+
+        </a>
+
+
+        <!-- LESSON 9 -->
+
+        <a class="card" href="pression-arterielle.html">
+
+          <div class="card-icon">❤️</div>
+
+          <h3>Pression artérielle</h3>
+
+          <p>
+            Blood pressure and the mechanisms
+            responsible for its regulation.
+          </p>
+
+        </a>
+
+
+        <!-- LESSON 10 -->
+
+        <a class="card" href="immunite.html">
+
+          <div class="card-icon">🛡️</div>
+
+          <h3>Immunité</h3>
+
+          <p>
+            Immune responses, antibodies,
+            lymphocytes and immune memory.
+          </p>
+
+        </a>
+
+
+      </div>
+
+    </section>
+
+
+    <footer>
+      YALUMY Learning — Understand • Remember • Practice
+    </footer>
+
+  </div>
+
+
+  <!-- DARK / LIGHT MODE -->
+
+  <script>
+
+    const themeToggle =
+      document.getElementById("themeToggle");
+
+    const savedTheme =
+      localStorage.getItem("yalumy-theme");
+
+
+    if (savedTheme === "dark") {
+
+      document.body.classList.add("dark");
+
+      themeToggle.textContent = "☀️";
+
+    }
+
+
+    themeToggle.addEventListener("click", () => {
+
+      document.body.classList.toggle("dark");
+
+
+      if (document.body.classList.contains("dark")) {
+
+        themeToggle.textContent = "☀️";
+
+        localStorage.setItem(
+          "yalumy-theme",
+          "dark"
+        );
+
+      } else {
+
+        themeToggle.textContent = "🌙";
+
+        localStorage.setItem(
+          "yalumy-theme",
+          "light"
+        );
+
+      }
+
+    });
+
+  </script>
+
+
+</body>
+</html>
