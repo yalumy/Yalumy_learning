@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Match the Pairs | 9bal el BAC</title>
+
+  <link rel="stylesheet" href="../style.css">
+
+  <style>
+
+    .game-wrap {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .game-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 20px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .match-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .match-card {
+      min-height: 95px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 18px;
+
+      text-align: center;
+
+      border: 1px solid var(--border);
+      border-radius: 18px;
+
+      background: var(--surface);
+      color: var(--text);
+
+      box-shadow: var(--shadow);
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition: 0.2s;
+    }
+
+    .match-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+    }
+
+    .match-card.selected {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+
+    .match-card.matched {
+      background: rgba(40, 180, 110, 0.14);
+      border-color: #27a86e;
+      cursor: default;
+    }
+
+    .match-card.wrong {
+      background: rgba(220, 80, 90, 0.14);
+      border-color: #d95763;
+    }
+
+    .game-message {
+      margin-top: 22px;
+
+      padding: 16px 18px;
+
+      border-radius: 16px;
+
+      background: var(--primary-soft);
+
+      text-align: center;
+
+      display: none;
+    }
+
+    .restart-game {
+      display: none;
+
+      margin: 25px auto 0;
+
+      border: none;
+
+      background: var(--primary);
+      color: white;
+
+      padding: 13px 22px;
+
+      border-radius: 14px;
+
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    @media (max-width: 700px) {
+
+      .match-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <nav class="navbar">
+
+    <div class="logo">
+      YALUMY <span>Learning</span>
+    </div>
+
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../lessons/index.html">Lessons</a>
+      <a href="../lessons/9bal-el-bac.html">9bal el BAC</a>
+
+      <button class="theme-toggle" id="themeToggle">
+        🌙
+      </button>
+    </div>
+
+  </nav>
+
+
+  <section class="hero">
+
+    <div class="hero-badge">
+      9BAL EL BAC • GAME
+    </div>
+
+    <h1>
+      Match the
+      <span>pairs.</span>
+    </h1>
+
+    <p>
+      Associe chaque notion à sa définition correcte.
+    </p>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="game-wrap">
+
+      <div class="game-top">
+        <span id="pairsCount">0 / 8 paires</span>
+        <span id="attempts">0 essais</span>
+      </div>
+
+      <div class="match-grid" id="matchGrid"></div>
+
+      <div class="game-message" id="gameMessage"></div>
+
+      <button class="restart-game" id="restartGame">
+        ↻ Rejouer
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <footer>
+    YALUMY Learning — Understand • Remember • Practice
+  </footer>
+
+</div>
+
+
+<script>
+
+/* =========================
+   PAIRS
+   ========================= */
+
+const pairs = [
+
+  {
+    id: 1,
+    term: "Diploïde",
+    definition: "Cellule notée 2n où chaque chromosome possède son homologue."
+  },
+
+  {
+    id: 2,
+    term: "Haploïde",
+    definition: "Cellule notée n où le chromosome ne présente pas son homologue."
+  },
+
+  {
+    id: 3,
+    term: "Chromosome entier",
+    definition: "Chromosome constitué de deux chromatides."
+  },
+
+  {
+    id: 4,
+    term: "Chromosome simple",
+    definition: "Chromosome constitué d'une seule chromatide."
+  },
+
+  {
+    id: 5,
+    term: "Locus",
+    definition: "Emplacement précis d'un gène sur un chromosome."
+  },
+
+  {
+    id: 6,
+    term: "Allèle",
+    definition: "Forme particulière ou version d'un gène."
+  },
+
+  {
+    id: 7,
+    term: "Homozygote",
+    definition: "Individu possédant deux allèles identiques pour le gène étudié."
+  },
+
+  {
+    id: 8,
+    term: "Hétérozygote",
+    definition: "Individu possédant deux allèles différents pour le gène étudié."
+  }
+
+];
+
+
+/* =========================
+   BUILD CARDS
+   ========================= */
+
+let selectedCards = [];
+let matchedPairs = 0;
+let attempts = 0;
+
+const grid =
+  document.getElementById("matchGrid");
+
+const pairsCount =
+  document.getElementById("pairsCount");
+
+const attemptsText =
+  document.getElementById("attempts");
+
+const gameMessage =
+  document.getElementById("gameMessage");
+
+const restartGame =
+  document.getElementById("restartGame");
+
+
+function shuffle(array) {
+
+  for (let i = array.length - 1; i > 0; i--) {
+
+    const j =
+      Math.floor(Math.random() * (i + 1));
+
+    [array[i], array[j]] =
+      [array[j], array[i]];
+
+  }
+
+  return array;
+}
+
+
+function buildGame() {
+
+  grid.innerHTML = "";
+
+  selectedCards = [];
+  matchedPairs = 0;
+  attempts = 0;
+
+  pairsCount.textContent =
+    "0 / " + pairs.length + " paires";
+
+  attemptsText.textContent =
+    "0 essais";
+
+  gameMessage.style.display =
+    "none";
+
+  restartGame.style.display =
+    "none";
+
+
+  let cards = [];
+
+
+  pairs.forEach(pair => {
+
+    cards.push({
+      pairId: pair.id,
+      type: "term",
+      text: pair.term
+    });
+
+    cards.push({
+      pairId: pair.id,
+      type: "definition",
+      text: pair.definition
+    });
+
+  });
+
+
+  cards = shuffle(cards);
+
+
+  cards.forEach(cardData => {
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "match-card";
+
+    card.textContent =
+      cardData.text;
+
+    card.dataset.pairId =
+      cardData.pairId;
+
+    card.dataset.type =
+      cardData.type;
+
+
+    card.addEventListener(
+      "click",
+      () => selectCard(card)
+    );
+
+
+    grid.appendChild(card);
+
+  });
+
+}
+
+
+/* =========================
+   SELECT
+   ========================= */
+
+function selectCard(card) {
+
+  if (
+    card.classList.contains("matched") ||
+    card.classList.contains("selected") ||
+    selectedCards.length === 2
+  ) {
+    return;
+  }
+
+
+  card.classList.add("selected");
+
+  selectedCards.push(card);
+
+
+  if (selectedCards.length === 2) {
+
+    attempts++;
+
+    attemptsText.textContent =
+      attempts + " essais";
+
+    checkMatch();
+
+  }
+
+}
+
+
+/* =========================
+   CHECK MATCH
+   ========================= */
+
+function checkMatch() {
+
+  const first =
+    selectedCards[0];
+
+  const second =
+    selectedCards[1];
+
+
+  const samePair =
+    first.dataset.pairId === second.dataset.pairId;
+
+  const differentType =
+    first.dataset.type !== second.dataset.type;
+
+
+  if (samePair && differentType) {
+
+    first.classList.remove("selected");
+    second.classList.remove("selected");
+
+    first.classList.add("matched");
+    second.classList.add("matched");
+
+    matchedPairs++;
+
+
+    pairsCount.textContent =
+      matchedPairs +
+      " / " +
+      pairs.length +
+      " paires";
+
+
+    selectedCards = [];
+
+
+    if (matchedPairs === pairs.length) {
+
+      finishGame();
+
+    }
+
+  } else {
+
+    first.classList.add("wrong");
+    second.classList.add("wrong");
+
+
+    setTimeout(() => {
+
+      first.classList.remove(
+        "selected",
+        "wrong"
+      );
+
+      second.classList.remove(
+        "selected",
+        "wrong"
+      );
+
+      selectedCards = [];
+
+    }, 700);
+
+  }
+
+}
+
+
+/* =========================
+   FINISH
+   ========================= */
+
+function finishGame() {
+
+  gameMessage.style.display =
+    "block";
+
+  gameMessage.innerHTML =
+    "<strong>🎉 Bravo !</strong><br>" +
+    "Tu as trouvé les " +
+    pairs.length +
+    " paires en " +
+    attempts +
+    " essais.";
+
+  restartGame.style.display =
+    "block";
+
+}
+
+
+restartGame.addEventListener(
+  "click",
+  buildGame
+);
+
+
+buildGame();
+
+
+/* =========================
+   DARK MODE
+   ========================= */
+
+const themeToggle =
+  document.getElementById("themeToggle");
+
+const savedTheme =
+  localStorage.getItem("yalumy-theme");
+
+
+if (savedTheme === "dark") {
+
+  document.body.classList.add("dark");
+  themeToggle.textContent = "☀️";
+
+}
+
+
+themeToggle.addEventListener("click", () => {
+
+  document.body.classList.toggle("dark");
+
+  if (document.body.classList.contains("dark")) {
+
+    themeToggle.textContent = "☀️";
+
+    localStorage.setItem(
+      "yalumy-theme",
+      "dark"
+    );
+
+  } else {
+
+    themeToggle.textContent = "🌙";
+
+    localStorage.setItem(
+      "yalumy-theme",
+      "light"
+    );
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>
