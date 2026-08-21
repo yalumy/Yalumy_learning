@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Flashcards | 9bal el BAC</title>
+
+  <link rel="stylesheet" href="../style.css">
+
+  <style>
+
+    .flashcard-area {
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .flashcard-progress {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .flashcard {
+      width: 100%;
+      min-height: 360px;
+      perspective: 1200px;
+      cursor: pointer;
+    }
+
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      min-height: 360px;
+
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    .flashcard.flipped .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-face {
+      position: absolute;
+
+      width: 100%;
+      min-height: 360px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      padding: 40px;
+
+      border: 1px solid var(--border);
+      border-radius: 28px;
+
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+
+      box-shadow: var(--shadow);
+
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .flashcard-back {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-label {
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      margin-bottom: 22px;
+    }
+
+    .flashcard-face h2 {
+      font-size: clamp(1.7rem, 5vw, 2.5rem);
+      line-height: 1.3;
+    }
+
+    .flashcard-face p {
+      max-width: 570px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-top: 18px;
+    }
+
+    .flip-hint {
+      position: absolute;
+      bottom: 22px;
+
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .flash-controls {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+
+      margin-top: 25px;
+    }
+
+    .flash-btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+
+      padding: 12px 20px;
+      border-radius: 13px;
+
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .flash-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .flash-btn.primary {
+      background: var(--primary);
+      color: white;
+      border-color: transparent;
+    }
+
+    @media (max-width: 600px) {
+
+      .flashcard,
+      .flashcard-inner,
+      .flashcard-face {
+        min-height: 390px;
+      }
+
+      .flashcard-face {
+        padding: 30px 22px;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar">
+
+    <div class="logo">
+      YALUMY <span>Learning</span>
+    </div>
+
+    <div class="nav-links">
+
+      <a href="../index.html">Home</a>
+
+      <a href="../lessons/index.html">
+        Lessons
+      </a>
+
+      <button
+        class="theme-toggle"
+        id="themeToggle">
+        🌙
+      </button>
+
+    </div>
+
+  </nav>
+
+
+  <!-- HEADER -->
+
+  <section class="hero">
+
+    <div class="hero-badge">
+      9BAL EL BAC • FLASHCARDS
+    </div>
+
+    <h1>
+      Learn.
+      <span>Recall.</span>
+      Repeat.
+    </h1>
+
+    <p>
+      Révise les notions essentielles avant le Bac
+      avec des cartes courtes et interactives.
+    </p>
+
+  </section>
+
+
+  <!-- FLASHCARDS -->
+
+  <section class="section">
+
+    <div class="flashcard-area">
+
+      <div
+        class="flashcard-progress"
+        id="progress">
+      </div>
+
+
+      <div
+        class="flashcard"
+        id="flashcard">
+
+        <div class="flashcard-inner">
+
+
+          <!-- FRONT -->
+
+          <div class="flashcard-face flashcard-front">
+
+            <div
+              class="flashcard-label"
+              id="category">
+            </div>
+
+            <h2 id="question"></h2>
+
+            <div class="flip-hint">
+              Click to reveal ↻
+            </div>
+
+          </div>
+
+
+          <!-- BACK -->
+
+          <div class="flashcard-face flashcard-back">
+
+            <div class="flashcard-label">
+              ANSWER
+            </div>
+
+            <h2 id="answer"></h2>
+
+            <p id="explanation"></p>
+
+            <div class="flip-hint">
+              Click to flip back ↻
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      <!-- CONTROLS -->
+
+      <div class="flash-controls">
+
+        <button
+          class="flash-btn"
+          id="previous">
+          ← Previous
+        </button>
+
+        <button
+          class="flash-btn primary"
+          id="next">
+          Next →
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <footer>
+    YALUMY Learning — Understand • Remember • Practice
+  </footer>
+
+</div>
+
+
+<script>
+
+  /* =========================
+     FLASHCARDS DATA
+     ========================= */
+
+  const cards = [
+
+    {
+      category: "CHROMOSOMES",
+
+      question:
+        "Que signifie 2n ?",
+
+      answer:
+        "Une cellule diploïde.",
+
+      explanation:
+        "Chaque chromosome présente son homologue : un chromosome d'origine paternelle et l'autre d'origine maternelle."
+    },
+
+    {
+      category: "CHROMOSOMES",
+
+      question:
+        "Que signifie n ?",
+
+      answer:
+        "Une cellule haploïde.",
+
+      explanation:
+        "Le chromosome ne présente pas son homologue."
+    },
+
+    {
+      category: "CHROMOSOMES",
+
+      question:
+        "Qu'est-ce qu'un chromosome entier ?",
+
+      answer:
+        "Un chromosome formé de deux chromatides.",
+
+      explanation:
+        "Les deux chromatides sont reliées au niveau du centromère."
+    },
+
+    {
+      category: "CHROMOSOMES",
+
+      question:
+        "Qu'est-ce qu'un chromosome simple ?",
+
+      answer:
+        "Un chromosome formé d'une seule chromatide.",
+
+      explanation:
+        "Il est donc monochromatidien."
+    }
+
+  ];
+
+
+  /* =========================
+     FLASHCARD ENGINE
+     ========================= */
+
+  let currentCard = 0;
+
+  const flashcard =
+    document.getElementById("flashcard");
+
+  const question =
+    document.getElementById("question");
+
+  const answer =
+    document.getElementById("answer");
+
+  const explanation =
+    document.getElementById("explanation");
+
+  const category =
+    document.getElementById("category");
+
+  const progress =
+    document.getElementById("progress");
+
+
+  function showCard() {
+
+    const card = cards[currentCard];
+
+    flashcard.classList.remove("flipped");
+
+    category.textContent =
+      card.category;
+
+    question.textContent =
+      card.question;
+
+    answer.textContent =
+      card.answer;
+
+    explanation.textContent =
+      card.explanation;
+
+    progress.textContent =
+      (currentCard + 1) +
+      " / " +
+      cards.length;
+
+  }
+
+
+  flashcard.addEventListener(
+    "click",
+    () => {
+
+      flashcard.classList.toggle(
+        "flipped"
+      );
+
+    }
+  );
+
+
+  document
+    .getElementById("next")
+    .addEventListener(
+      "click",
+      () => {
+
+        currentCard =
+          (currentCard + 1)
+          % cards.length;
+
+        showCard();
+
+      }
+    );
+
+
+  document
+    .getElementById("previous")
+    .addEventListener(
+      "click",
+      () => {
+
+        currentCard =
+          (currentCard - 1 + cards.length)
+          % cards.length;
+
+        showCard();
+
+      }
+    );
+
+
+  showCard();
+
+
+  /* =========================
+     DARK MODE
+     ========================= */
+
+  const themeToggle =
+    document.getElementById("themeToggle");
+
+  const savedTheme =
+    localStorage.getItem("yalumy-theme");
+
+
+  if (savedTheme === "dark") {
+
+    document.body.classList.add("dark");
+
+    themeToggle.textContent = "☀️";
+
+  }
+
+
+  themeToggle.addEventListener(
+    "click",
+    () => {
+
+      document.body.classList.toggle("dark");
+
+      if (
+        document.body.classList.contains("dark")
+      ) {
+
+        themeToggle.textContent = "☀️";
+
+        localStorage.setItem(
+          "yalumy-theme",
+          "dark"
+        );
+
+      } else {
+
+        themeToggle.textContent = "🌙";
+
+        localStorage.setItem(
+          "yalumy-theme",
+          "light"
+        );
+
+      }
+
+    }
+  );
+
+</script>
+
+</body>
+</html>
