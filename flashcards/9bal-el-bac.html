@@ -11,11 +11,46 @@
 
   <style>
 
+    .flashcard-filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 35px;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+
+      padding: 10px 15px;
+      border-radius: 999px;
+
+      font-weight: 700;
+      cursor: pointer;
+
+      transition: 0.2s;
+    }
+
+    .filter-btn:hover {
+      transform: translateY(-2px);
+      color: var(--text);
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+
     .flashcard-area {
       max-width: 760px;
       margin: 0 auto;
       text-align: center;
     }
+
 
     .flashcard-progress {
       color: var(--muted);
@@ -23,31 +58,37 @@
       margin-bottom: 18px;
     }
 
+
     .flashcard {
       width: 100%;
-      min-height: 360px;
+      min-height: 370px;
+
       perspective: 1200px;
       cursor: pointer;
     }
 
+
     .flashcard-inner {
       position: relative;
+
       width: 100%;
-      min-height: 360px;
+      min-height: 370px;
 
       transition: transform 0.6s;
       transform-style: preserve-3d;
     }
 
+
     .flashcard.flipped .flashcard-inner {
       transform: rotateY(180deg);
     }
+
 
     .flashcard-face {
       position: absolute;
 
       width: 100%;
-      min-height: 360px;
+      min-height: 370px;
 
       display: flex;
       flex-direction: column;
@@ -68,29 +109,39 @@
       -webkit-backface-visibility: hidden;
     }
 
+
     .flashcard-back {
       transform: rotateY(180deg);
     }
 
+
     .flashcard-label {
       color: var(--primary);
+
       font-size: 0.75rem;
       font-weight: 800;
+
       letter-spacing: 0.12em;
+
       margin-bottom: 22px;
     }
 
+
     .flashcard-face h2 {
-      font-size: clamp(1.7rem, 5vw, 2.5rem);
-      line-height: 1.3;
+      font-size: clamp(1.55rem, 5vw, 2.4rem);
+      line-height: 1.35;
     }
 
+
     .flashcard-face p {
-      max-width: 570px;
+      max-width: 590px;
+
       color: var(--muted);
+
       line-height: 1.7;
       margin-top: 18px;
     }
+
 
     .flip-hint {
       position: absolute;
@@ -100,29 +151,39 @@
       font-size: 0.8rem;
     }
 
+
     .flash-controls {
       display: flex;
+      flex-wrap: wrap;
+
       justify-content: center;
       gap: 12px;
 
       margin-top: 25px;
     }
 
+
     .flash-btn {
       border: 1px solid var(--border);
+
       background: var(--surface);
       color: var(--text);
 
       padding: 12px 20px;
+
       border-radius: 13px;
 
       font-weight: 700;
       cursor: pointer;
+
+      transition: 0.2s;
     }
+
 
     .flash-btn:hover {
       transform: translateY(-2px);
     }
+
 
     .flash-btn.primary {
       background: var(--primary);
@@ -130,61 +191,58 @@
       border-color: transparent;
     }
 
+
+    .topic-title {
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+
+    .topic-title h2 {
+      font-size: 1.6rem;
+    }
+
+
+    .topic-title p {
+      margin-top: 7px;
+      color: var(--muted);
+    }
+
+
     @media (max-width: 600px) {
 
       .flashcard,
       .flashcard-inner,
       .flashcard-face {
-        min-height: 390px;
+        min-height: 410px;
       }
+
 
       .flashcard-face {
         padding: 30px 22px;
       }
 
+
+      .flash-controls {
+        flex-direction: column;
+      }
+
+
+      .flash-btn {
+        width: 100%;
+      }
+
     }
-    .flashcard-filters {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-
-  margin-bottom: 35px;
-}
-
-.filter-btn {
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--muted);
-
-  padding: 10px 15px;
-
-  border-radius: 999px;
-
-  font-weight: 700;
-  cursor: pointer;
-
-  transition: 0.2s;
-}
-
-.filter-btn:hover {
-  transform: translateY(-2px);
-  color: var(--text);
-}
-
-.filter-btn.active {
-  background: var(--primary);
-  color: white;
-  border-color: var(--primary);
-}
 
   </style>
+
 </head>
 
 
 <body>
 
 <div class="container">
+
 
   <!-- NAVBAR -->
 
@@ -194,13 +252,21 @@
       YALUMY <span>Learning</span>
     </div>
 
+
     <div class="nav-links">
 
-      <a href="../index.html">Home</a>
+      <a href="../index.html">
+        Home
+      </a>
 
       <a href="../lessons/index.html">
         Lessons
       </a>
+
+      <a href="../lessons/9bal-el-bac.html">
+        9bal el BAC
+      </a>
+
 
       <button
         class="theme-toggle"
@@ -213,7 +279,8 @@
   </nav>
 
 
-  <!-- HEADER -->
+
+  <!-- HERO -->
 
   <section class="hero">
 
@@ -221,52 +288,99 @@
       9BAL EL BAC • FLASHCARDS
     </div>
 
+
     <h1>
       Learn.
       <span>Recall.</span>
       Repeat.
     </h1>
 
+
     <p>
       Révise les notions essentielles avant le Bac
-      avec des cartes courtes et interactives.
+      à travers des cartes courtes, ciblées et interactives.
     </p>
 
   </section>
 
 
+
   <!-- FLASHCARDS -->
 
   <section class="section">
+
+
+    <div class="topic-title">
+
+      <h2>Choisis un thème</h2>
+
+      <p>
+        Tu peux réviser un chapitre précis ou mélanger toutes les cartes.
+      </p>
+
+    </div>
+
+
+    <!-- FILTERS -->
+
     <div class="flashcard-filters">
 
-  <button class="filter-btn active" data-category="ALL">
-    All
-  </button>
 
-  <button class="filter-btn" data-category="CHROMOSOMES">
-    Chromosomes
-  </button>
+      <button
+        class="filter-btn active"
+        data-category="ALL">
+        All
+      </button>
 
-  <button class="filter-btn" data-category="MITOSE & MÉIOSE">
-    Mitose & Méiose
-  </button>
 
-  <button class="filter-btn" data-category="HORMONES">
-    Hormones
-  </button>
+      <button
+        class="filter-btn"
+        data-category="VERBES">
+        Verbes d'action
+      </button>
 
-  <button class="filter-btn" data-category="GÉNÉTIQUE">
-    Génétique
-  </button>
 
-  <button class="filter-btn" data-category="MONOHYBRIDISME">
-    Monohybridisme
-  </button>
+      <button
+        class="filter-btn"
+        data-category="CHROMOSOMES">
+        Chromosomes
+      </button>
 
-</div>
+
+      <button
+        class="filter-btn"
+        data-category="DIVISION">
+        Mitose & Méiose
+      </button>
+
+
+      <button
+        class="filter-btn"
+        data-category="HORMONES">
+        Hormones
+      </button>
+
+
+      <button
+        class="filter-btn"
+        data-category="GENETIQUE">
+        Génétique
+      </button>
+
+
+      <button
+        class="filter-btn"
+        data-category="MONOHYBRIDISME">
+        Monohybridisme
+      </button>
+
+
+    </div>
+
+
 
     <div class="flashcard-area">
+
 
       <div
         class="flashcard-progress"
@@ -274,9 +388,13 @@
       </div>
 
 
+
+      <!-- CARD -->
+
       <div
         class="flashcard"
         id="flashcard">
+
 
         <div class="flashcard-inner">
 
@@ -285,323 +403,1028 @@
 
           <div class="flashcard-face flashcard-front">
 
+
             <div
               class="flashcard-label"
               id="category">
             </div>
 
+
             <h2 id="question"></h2>
+
 
             <div class="flip-hint">
               Click to reveal ↻
             </div>
 
+
           </div>
+
 
 
           <!-- BACK -->
 
           <div class="flashcard-face flashcard-back">
 
+
             <div class="flashcard-label">
               ANSWER
             </div>
 
+
             <h2 id="answer"></h2>
 
+
             <p id="explanation"></p>
+
 
             <div class="flip-hint">
               Click to flip back ↻
             </div>
+
 
           </div>
 
 
         </div>
 
+
       </div>
+
 
 
       <!-- CONTROLS -->
 
       <div class="flash-controls">
 
+
         <button
           class="flash-btn"
           id="previous">
+
           ← Previous
+
         </button>
+
+
+        <button
+          class="flash-btn"
+          id="shuffle">
+
+          🔀 Shuffle
+
+        </button>
+
 
         <button
           class="flash-btn primary"
           id="next">
+
           Next →
+
         </button>
+
 
       </div>
 
+
     </div>
 
+
   </section>
+
 
 
   <footer>
     YALUMY Learning — Understand • Remember • Practice
   </footer>
 
+
 </div>
+
 
 
 <script>
 
-  /* =========================
-     FLASHCARDS DATA
-     ========================= */
 
-  const cards = [
-
-    {
-      category: "CHROMOSOMES",
-
-      question:
-        "Que signifie 2n ?",
-
-      answer:
-        "Une cellule diploïde.",
-
-      explanation:
-        "Chaque chromosome présente son homologue : un chromosome d'origine paternelle et l'autre d'origine maternelle."
-    },
-
-    {
-      category: "CHROMOSOMES",
-
-      question:
-        "Que signifie n ?",
-
-      answer:
-        "Une cellule haploïde.",
-
-      explanation:
-        "Le chromosome ne présente pas son homologue."
-    },
-
-    {
-      category: "CHROMOSOMES",
-
-      question:
-        "Qu'est-ce qu'un chromosome entier ?",
-
-      answer:
-        "Un chromosome formé de deux chromatides.",
-
-      explanation:
-        "Les deux chromatides sont reliées au niveau du centromère."
-    },
-
-    {
-      category: "CHROMOSOMES",
-
-      question:
-        "Qu'est-ce qu'un chromosome simple ?",
-
-      answer:
-        "Un chromosome formé d'une seule chromatide.",
-
-      explanation:
-        "Il est donc monochromatidien."
-    }
-
-  ];
+/* ==========================================
+   FLASHCARDS
+   ========================================== */
 
 
-  /* =========================
-     FLASHCARD ENGINE
-     ========================= */
+const cards = [
 
-  let currentCard = 0;
+
+/* ==========================================
+   VERBES D'ACTION
+   ========================================== */
+
+
+{
+  category: "VERBES",
+
+  question:
+    "Que signifie « Analyser » ?",
+
+  answer:
+    "Faire une description détaillée du document.",
+
+  explanation:
+    "L'analyse peut inclure les valeurs, les paramètres et les informations importantes du document."
+},
+
+
+{
+  category: "VERBES",
+
+  question:
+    "Que signifie « Analyse comparée » ?",
+
+  answer:
+    "Décrire les deux documents en les comparant.",
+
+  explanation:
+    "On décrit le document A puis on met en relation avec le document B, par exemple avec « alors que »."
+},
+
+
+{
+  category: "VERBES",
+
+  question:
+    "Que signifie « Exploiter » ?",
+
+  answer:
+    "Faire une description non détaillée.",
+
+  explanation:
+    "On extrait du document les informations utiles pour répondre."
+},
+
+
+{
+  category: "VERBES",
+
+  question:
+    "Que signifie « Expliquer » ?",
+
+  answer:
+    "Répondre en se basant sur les connaissances.",
+
+  explanation:
+    "L'explication fait intervenir les connaissances apprises dans le cours."
+},
+
+
+{
+  category: "VERBES",
+
+  question:
+    "Que signifie « Identifier » ?",
+
+  answer:
+    "Donner le nom avec une justification.",
+
+  explanation:
+    "Il ne suffit pas seulement de nommer : il faut aussi justifier l'identification."
+},
+
+
+{
+  category: "VERBES",
+
+  question:
+    "Que signifie « Nommer » ?",
+
+  answer:
+    "Donner le nom.",
+
+  explanation:
+    "La réponse attendue est simplement le nom demandé."
+},
+
+
+{
+  category: "VERBES",
+
+  question:
+    "Que doit-on rechercher lorsqu'on compare deux documents ?",
+
+  answer:
+    "Les points communs et les points différents.",
+
+  explanation:
+    "La comparaison consiste à mettre en évidence les ressemblances et les différences."
+},
+
+
+
+/* ==========================================
+   CHROMOSOMES
+   ========================================== */
+
+
+{
+  category: "CHROMOSOMES",
+
+  question:
+    "Que signifie 2n ?",
+
+  answer:
+    "Une cellule diploïde.",
+
+  explanation:
+    "Chaque chromosome présente son homologue : un chromosome d'origine paternelle et l'autre d'origine maternelle."
+},
+
+
+{
+  category: "CHROMOSOMES",
+
+  question:
+    "Que signifie n ?",
+
+  answer:
+    "Une cellule haploïde.",
+
+  explanation:
+    "Le chromosome ne présente pas son homologue."
+},
+
+
+{
+  category: "CHROMOSOMES",
+
+  question:
+    "Qu'est-ce qu'un chromosome entier ?",
+
+  answer:
+    "Un chromosome formé de deux chromatides.",
+
+  explanation:
+    "Les deux chromatides sont reliées au niveau du centromère."
+},
+
+
+{
+  category: "CHROMOSOMES",
+
+  question:
+    "Qu'est-ce qu'un chromosome simple ?",
+
+  answer:
+    "Un chromosome formé d'une seule chromatide.",
+
+  explanation:
+    "Le chromosome est monochromatidien."
+},
+
+
+
+/* ==========================================
+   MITOSE & MEIOSE
+   ========================================== */
+
+
+{
+  category: "DIVISION",
+
+  question:
+    "Quel est le rôle général présenté pour la mitose ?",
+
+  answer:
+    "Copier-coller.",
+
+  explanation:
+    "Le document présente la mitose comme une division qui conserve le même nombre de chromosomes."
+},
+
+
+{
+  category: "DIVISION",
+
+  question:
+    "Quelles sont les quatre phases de la mitose présentées dans le document ?",
+
+  answer:
+    "Prophase → Métaphase → Anaphase → Télophase.",
+
+  explanation:
+    "Ces quatre étapes sont présentées dans cet ordre dans le schéma."
+},
+
+
+{
+  category: "DIVISION",
+
+  question:
+    "Dans quelles cellules la méiose a-t-elle lieu selon le document ?",
+
+  answer:
+    "Dans les cellules de la lignée germinale.",
+
+  explanation:
+    "Ces cellules donneront ensuite les gamètes."
+},
+
+
+{
+  category: "DIVISION",
+
+  question:
+    "Combien de grandes divisions comporte la méiose ?",
+
+  answer:
+    "Deux divisions.",
+
+  explanation:
+    "Méiose I puis Méiose II."
+},
+
+
+{
+  category: "DIVISION",
+
+  question:
+    "Quel changement de ploïdie est illustré pendant la méiose ?",
+
+  answer:
+    "On passe de 2n à n.",
+
+  explanation:
+    "Le schéma montre une cellule diploïde qui conduit à des cellules haploïdes."
+},
+
+
+
+/* ==========================================
+   HORMONES
+   ========================================== */
+
+
+{
+  category: "HORMONES",
+
+  question:
+    "Qu'est-ce qu'une hormone ?",
+
+  answer:
+    "Une substance chimique sécrétée par une glande endocrine.",
+
+  explanation:
+    "Elle circule dans le sang pour agir sur des cellules cibles."
+},
+
+
+{
+  category: "HORMONES",
+
+  question:
+    "Comment une hormone atteint-elle ses cellules cibles ?",
+
+  answer:
+    "Elle circule dans le sang.",
+
+  explanation:
+    "Elle est transportée par la circulation sanguine jusqu'aux cellules cibles."
+},
+
+
+{
+  category: "HORMONES",
+
+  question:
+    "Qu'est-ce qui permet à une cellule d'être une cellule cible d'une hormone ?",
+
+  answer:
+    "La présence d'un récepteur spécifique.",
+
+  explanation:
+    "Le document présente un récepteur spécifique membranaire."
+},
+
+
+{
+  category: "HORMONES",
+
+  question:
+    "Que se forme-t-il lorsque l'hormone se fixe sur son récepteur ?",
+
+  answer:
+    "Un complexe récepteur-hormone.",
+
+  explanation:
+    "La formation de ce complexe agit ensuite sur la cellule."
+},
+
+
+{
+  category: "HORMONES",
+
+  question:
+    "Quels effets peut avoir le complexe récepteur-hormone ?",
+
+  answer:
+    "Stimuler (+) ou inhiber (−) certaines réactions.",
+
+  explanation:
+    "La réponse cellulaire peut donc être une stimulation ou une inhibition."
+},
+
+
+{
+  category: "HORMONES",
+
+  question:
+    "Quelle est la caractéristique d'une glande endocrine ?",
+
+  answer:
+    "Elle déverse sa sécrétion directement dans le sang.",
+
+  explanation:
+    "Elle ne possède pas de conduit excréteur dans le schéma."
+},
+
+
+{
+  category: "HORMONES",
+
+  question:
+    "Quelle est la caractéristique d'une glande exocrine ?",
+
+  answer:
+    "Elle possède un conduit.",
+
+  explanation:
+    "La sécrétion est évacuée vers une cavité ou la surface du corps."
+},
+
+
+
+/* ==========================================
+   GENETIQUE
+   ========================================== */
+
+
+{
+  category: "GENETIQUE",
+
+  question:
+    "Qu'est-ce qu'un gène ?",
+
+  answer:
+    "Une unité d'information génétique constituée d'une séquence de bases d'ADN.",
+
+  explanation:
+    "Le gène est responsable de la réalisation d'un caractère."
+},
+
+
+{
+  category: "GENETIQUE",
+
+  question:
+    "Qu'est-ce qu'un locus ?",
+
+  answer:
+    "L'emplacement précis d'un gène sur un chromosome.",
+
+  explanation:
+    "Chaque gène occupe une position fixe sur le chromosome."
+},
+
+
+{
+  category: "GENETIQUE",
+
+  question:
+    "Qu'est-ce qu'un phénotype ?",
+
+  answer:
+    "L'aspect apparent d'un caractère héréditaire.",
+
+  explanation:
+    "C'est ce que l'on peut observer ou mesurer."
+},
+
+
+{
+  category: "GENETIQUE",
+
+  question:
+    "De quoi résulte le phénotype ?",
+
+  answer:
+    "De l'expression du génotype et de l'influence de l'environnement.",
+
+  explanation:
+    "Le document relie le phénotype à ce que l'on voit."
+},
+
+
+{
+  category: "GENETIQUE",
+
+  question:
+    "Qu'est-ce que le génotype ?",
+
+  answer:
+    "L'ensemble des gènes ou des couples d'allèles chez un individu.",
+
+  explanation:
+    "Il correspond à l'information génétique possédée par l'individu."
+},
+
+
+{
+  category: "GENETIQUE",
+
+  question:
+    "Voit-on directement le génotype ?",
+
+  answer:
+    "Non.",
+
+  explanation:
+    "Le document le présente comme le « code » contenu dans l'ADN."
+},
+
+
+{
+  category: "GENETIQUE",
+
+  question:
+    "Qu'est-ce qu'un allèle ?",
+
+  answer:
+    "Une forme particulière ou une version d'un gène.",
+
+  explanation:
+    "Un même gène peut exister sous différentes formes appelées allèles."
+},
+
+
+{
+  category: "GENETIQUE",
+
+  question:
+    "Où se trouvent les allèles d'un même gène ?",
+
+  answer:
+    "Au même locus sur les chromosomes homologues.",
+
+  explanation:
+    "Ils occupent le même emplacement sur les deux chromosomes homologues."
+},
+
+
+{
+  category: "GENETIQUE",
+
+  question:
+    "Qu'est-ce qu'un couple d'allèles ?",
+
+  answer:
+    "Les deux allèles d'un gène situés au même locus sur les chromosomes homologues.",
+
+  explanation:
+    "Ils peuvent être identiques ou différents."
+},
+
+
+{
+  category: "GENETIQUE",
+
+  question:
+    "Que signifie homozygote ?",
+
+  answer:
+    "Les deux allèles sont identiques.",
+
+  explanation:
+    "Exemples présentés : AA ou aa."
+},
+
+
+{
+  category: "GENETIQUE",
+
+  question:
+    "Que signifie hétérozygote ?",
+
+  answer:
+    "Les deux allèles sont différents.",
+
+  explanation:
+    "Exemple présenté : Aa."
+},
+
+
+
+/* ==========================================
+   MONOHYBRIDISME
+   ========================================== */
+
+
+{
+  category: "MONOHYBRIDISME",
+
+  question:
+    "Que dit la 1re loi de Mendel présentée dans le document ?",
+
+  answer:
+    "Deux parents différents et de race pure donnent une F1 homogène.",
+
+  explanation:
+    "C'est la loi de l'uniformité de la F1."
+},
+
+
+{
+  category: "MONOHYBRIDISME",
+
+  question:
+    "Comment est la F1 issue de deux parents de race pure différents pour un caractère ?",
+
+  answer:
+    "Homogène.",
+
+  explanation:
+    "Tous les individus de la F1 se ressemblent pour le caractère étudié."
+},
+
+
+{
+  category: "MONOHYBRIDISME",
+
+  question:
+    "Que dit la loi de la pureté des gamètes ?",
+
+  answer:
+    "Les allèles d'un gène se séparent lors de la formation des gamètes.",
+
+  explanation:
+    "Chaque gamète ne reçoit qu'un seul allèle."
+},
+
+
+{
+  category: "MONOHYBRIDISME",
+
+  question:
+    "Combien d'allèles d'un gène reçoit un gamète ?",
+
+  answer:
+    "Un seul allèle.",
+
+  explanation:
+    "C'est pourquoi le gamète est présenté comme « pur » pour ce gène."
+},
+
+
+{
+  category: "MONOHYBRIDISME",
+
+  question:
+    "Quels types de gamètes produit un individu hétérozygote Vv dans l'exemple ?",
+
+  answer:
+    "Des gamètes V et des gamètes v.",
+
+  explanation:
+    "Le document indique 50 % V et 50 % v."
+},
+
+
+{
+  category: "MONOHYBRIDISME",
+
+  question:
+    "Quel est le but du test-cross ?",
+
+  answer:
+    "Déterminer le génotype d'un individu au phénotype dominant.",
+
+  explanation:
+    "Le génotype dominant inconnu peut être homozygote dominant ou hétérozygote."
+},
+
+
+{
+  category: "MONOHYBRIDISME",
+
+  question:
+    "Avec quel individu réalise-t-on un test-cross ?",
+
+  answer:
+    "Avec un individu homozygote récessif.",
+
+  explanation:
+    "Le document présente le croisement entre l'individu à tester et un testeur récessif."
+}
+
+
+];
+
+
+
+/* ==========================================
+   ENGINE
+   ========================================== */
+
+
 let filteredCards = [...cards];
 
-  const flashcard =
-    document.getElementById("flashcard");
-
-  const question =
-    document.getElementById("question");
-
-  const answer =
-    document.getElementById("answer");
-
-  const explanation =
-    document.getElementById("explanation");
-
-  const category =
-    document.getElementById("category");
-
-  const progress =
-    document.getElementById("progress");
+let currentCard = 0;
 
 
-  function showCard() {
 
-    const card = filteredCards[currentCard];
+const flashcard =
+  document.getElementById("flashcard");
 
-    flashcard.classList.remove("flipped");
 
-    category.textContent =
-      card.category;
+const question =
+  document.getElementById("question");
 
-    question.textContent =
-      card.question;
 
-    answer.textContent =
-      card.answer;
+const answer =
+  document.getElementById("answer");
 
-    explanation.textContent =
-      card.explanation;
 
-    progress.textContent =
-      (currentCard + 1) +
-      " / " +
-      filteredCards.length;
+const explanation =
+  document.getElementById("explanation");
 
+
+const category =
+  document.getElementById("category");
+
+
+const progress =
+  document.getElementById("progress");
+
+
+
+function showCard() {
+
+
+  if (filteredCards.length === 0) {
+    return;
   }
 
 
-  flashcard.addEventListener(
+  const card =
+    filteredCards[currentCard];
+
+
+  flashcard.classList.remove("flipped");
+
+
+  category.textContent =
+    card.category;
+
+
+  question.textContent =
+    card.question;
+
+
+  answer.textContent =
+    card.answer;
+
+
+  explanation.textContent =
+    card.explanation;
+
+
+  progress.textContent =
+    (currentCard + 1)
+    + " / "
+    + filteredCards.length;
+
+}
+
+
+
+/* FLIP */
+
+
+flashcard.addEventListener(
+  "click",
+  () => {
+
+    flashcard.classList.toggle("flipped");
+
+  }
+);
+
+
+
+/* NEXT */
+
+
+document
+  .getElementById("next")
+  .addEventListener(
     "click",
     () => {
 
-      flashcard.classList.toggle(
-        "flipped"
-      );
+      currentCard =
+        (currentCard + 1)
+        % filteredCards.length;
+
+
+      showCard();
 
     }
   );
 
 
-  document
-    .getElementById("next")
-    .addEventListener(
-      "click",
-      () => {
 
-        currentCard =
-          (currentCard + 1)
-          % filteredCards.length;
-
-        showCard();
-
-      }
-    );
+/* PREVIOUS */
 
 
-  document
-    .getElementById("previous")
-    .addEventListener(
-      "click",
-      () => {
+document
+  .getElementById("previous")
+  .addEventListener(
+    "click",
+    () => {
 
-        currentCard =
-          (currentCard - 1 + cards.length)
-          % filteredCards.length;
+      currentCard =
+        (currentCard - 1 + filteredCards.length)
+        % filteredCards.length;
 
-        showCard();
 
-      }
-    );
+      showCard();
+
+    }
+  );
+
+
+
+/* SHUFFLE */
+
+
+document
+  .getElementById("shuffle")
+  .addEventListener(
+    "click",
+    () => {
+
+
+      filteredCards.sort(
+        () => Math.random() - 0.5
+      );
+
+
+      currentCard = 0;
+
+
+      showCard();
+
+    }
+  );
+
+
+
+/* FILTERS */
+
+
 const filterButtons =
   document.querySelectorAll(".filter-btn");
 
+
 filterButtons.forEach(button => {
 
+
   button.addEventListener("click", () => {
+
 
     filterButtons.forEach(btn =>
       btn.classList.remove("active")
     );
 
+
     button.classList.add("active");
+
 
     const selectedCategory =
       button.dataset.category;
 
+
     if (selectedCategory === "ALL") {
 
-      filteredCards = [...cards];
+
+      filteredCards =
+        [...cards];
+
 
     } else {
 
-      filteredCards = cards.filter(
-        card =>
-          card.category === selectedCategory
-      );
+
+      filteredCards =
+        cards.filter(
+
+          card =>
+            card.category === selectedCategory
+
+        );
+
 
     }
+
 
     currentCard = 0;
 
+
     showCard();
+
 
   });
 
+
 });
 
-  showCard();
 
 
-  /* =========================
-     DARK MODE
-     ========================= */
-
-  const themeToggle =
-    document.getElementById("themeToggle");
-
-  const savedTheme =
-    localStorage.getItem("yalumy-theme");
+/* INITIAL CARD */
 
 
-  if (savedTheme === "dark") {
-
-    document.body.classList.add("dark");
-
-    themeToggle.textContent = "☀️";
-
-  }
+showCard();
 
 
-  themeToggle.addEventListener(
-    "click",
-    () => {
 
-      document.body.classList.toggle("dark");
+/* ==========================================
+   DARK MODE
+   ========================================== */
 
-      if (
-        document.body.classList.contains("dark")
-      ) {
 
-        themeToggle.textContent = "☀️";
+const themeToggle =
+  document.getElementById("themeToggle");
 
-        localStorage.setItem(
-          "yalumy-theme",
-          "dark"
-        );
 
-      } else {
+const savedTheme =
+  localStorage.getItem("yalumy-theme");
 
-        themeToggle.textContent = "🌙";
 
-        localStorage.setItem(
-          "yalumy-theme",
-          "light"
-        );
 
-      }
+if (savedTheme === "dark") {
+
+
+  document.body.classList.add("dark");
+
+
+  themeToggle.textContent =
+    "☀️";
+
+
+}
+
+
+
+themeToggle.addEventListener(
+  "click",
+  () => {
+
+
+    document.body.classList.toggle("dark");
+
+
+    if (
+      document.body.classList.contains("dark")
+    ) {
+
+
+      themeToggle.textContent =
+        "☀️";
+
+
+      localStorage.setItem(
+        "yalumy-theme",
+        "dark"
+      );
+
+
+    } else {
+
+
+      themeToggle.textContent =
+        "🌙";
+
+
+      localStorage.setItem(
+        "yalumy-theme",
+        "light"
+      );
+
 
     }
-  );
+
+
+  }
+);
+
 
 </script>
+
 
 </body>
 </html>
