@@ -10,6 +10,45 @@
   <link rel="stylesheet" href="../style.css">
 
   <style>
+    .memory-controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.memory-btn {
+  border: none;
+  padding: 13px 22px;
+  border-radius: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.memory-btn:hover {
+  transform: translateY(-2px);
+}
+
+.memory-btn.review {
+  background: rgba(255, 170, 70, 0.15);
+  color: #d77b00;
+}
+
+.memory-btn.know {
+  background: rgba(50, 190, 120, 0.15);
+  color: #15945a;
+}
+
+@media (max-width: 600px) {
+  .memory-controls {
+    flex-direction: column;
+  }
+
+  .memory-btn {
+    width: 100%;
+  }
+}
 
     .flashcard-filters {
       display: flex;
@@ -451,7 +490,17 @@
 
       </div>
 
+<div class="memory-controls">
 
+  <button class="memory-btn review" id="reviewBtn">
+    ↻ À revoir
+  </button>
+
+  <button class="memory-btn know" id="knowBtn">
+    ✓ Je sais
+  </button>
+
+</div>
 
       <!-- CONTROLS -->
 
@@ -1136,6 +1185,8 @@ const cards = [
 let filteredCards = [...cards];
 
 let currentCard = 0;
+  let reviewCards = [];
+let knownCards = [];
 
 
 
@@ -1342,7 +1393,107 @@ filterButtons.forEach(button => {
 
 
 });
+/* ==========================================
+   MEMORY SYSTEM
+   ========================================== */
 
+document
+  .getElementById("knowBtn")
+  .addEventListener("click", () => {
+
+    const card = filteredCards[currentCard];
+
+    if (!knownCards.includes(card)) {
+      knownCards.push(card);
+    }
+
+    reviewCards =
+      reviewCards.filter(item => item !== card);
+
+    nextCard();
+
+  });
+
+
+document
+  .getElementById("reviewBtn")
+  .addEventListener("click", () => {
+
+    const card = filteredCards[currentCard];
+
+    if (!reviewCards.includes(card)) {
+      reviewCards.push(card);
+    }
+
+    nextCard();
+
+  });
+
+
+function nextCard() {
+
+  if (currentCard < filteredCards.length - 1) {
+
+    currentCard++;
+
+    showCard();
+
+  } else {
+
+    finishRound();
+
+  }
+
+}
+
+
+function finishRound() {
+
+  flashcard.classList.remove("flipped");
+
+  if (reviewCards.length > 0) {
+
+    filteredCards = [...reviewCards];
+
+    reviewCards = [];
+
+    currentCard = 0;
+
+    question.textContent =
+      "Round terminé 🎯";
+
+    answer.textContent =
+      "On reprend les cartes difficiles.";
+
+    explanation.textContent =
+      "Clique sur Next pour revoir uniquement les cartes que tu as marquées « À revoir ».";
+
+    category.textContent =
+      "YALUMY REVIEW";
+
+    progress.textContent =
+      "Révision ciblée";
+
+  } else {
+
+    question.textContent =
+      "Excellent ! 🎉";
+
+    answer.textContent =
+      "Tu as terminé cette série.";
+
+    explanation.textContent =
+      "Toutes les cartes de cette série ont été marquées comme acquises.";
+
+    category.textContent =
+      "ROUND COMPLETE";
+
+    progress.textContent =
+      "✓ " + knownCards.length + " cartes acquises";
+
+  }
+
+}
 
 
 /* INITIAL CARD */
